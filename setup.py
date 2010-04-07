@@ -1,6 +1,6 @@
 ##############################################################################
 #
-# Copyright (c) 2010 Zope Corporation and Contributors.
+# Copyright (c) 2010 Zope Foundation and Contributors.
 # All Rights Reserved.
 #
 # This software is subject to the provisions of the Zope Public License,
@@ -20,7 +20,7 @@ setup(name='Record',
       url='http://pypi.python.org/pypi/Record',
       license='ZPL 2.1',
       description="Special Record objects used in Zope2.",
-      author='Zope Corporation and Contributors',
+      author='Zope Foundation and Contributors',
       author_email='zope-dev@zope.org',
       long_description=open('README.txt').read() + '\n' +
                        open('CHANGES.txt').read(),
