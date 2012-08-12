@@ -145,3 +145,46 @@ class RecordTest(unittest.TestCase):
     def test_len(self):
         r = R((1, 2, None))
         self.assertEqual(len(r), 3)
+
+    def test_cmp(self):
+        r1 = R((1, 2, None))
+        r2 = R((1, 2, None))
+        self.assertEqual(r1, r2)
+        self.assertFalse(r1 is r2)
+        self.assertTrue(r1 <= r2)
+        self.assertTrue(r1 >= r2)
+        self.assertFalse(r1 != r2)
+        self.assertFalse(r1 > r2)
+        self.assertFalse(r1 < r2)
+        r3 = R((1, 2, 3))
+        self.assertNotEqual(r1, r3)
+        self.assertFalse(r1 is r3)
+        self.assertTrue(r1 <= r3)
+        self.assertFalse(r1 >= r3)
+        self.assertTrue(r1 != r3)
+        self.assertFalse(r1 > r3)
+        self.assertTrue(r1 < r3)
+
+    def test_cmp_different_schema(self):
+        class R2(Record):
+            __record_schema__ = {'a': 0, 'b': 1}
+        r1 = R((1, 2, None))
+        r2 = R2((1, 2))
+        self.assertNotEqual(r1, r2)
+        self.assertTrue(r1 > r2)
+        self.assertFalse(r1 < r2)
+        r1 = R((1, 2, 3))
+        self.assertNotEqual(r1, r2)
+        self.assertFalse(r1 <= r2)
+        self.assertTrue(r1 >= r2)
+        self.assertTrue(r1 != r2)
+        self.assertTrue(r1 > r2)
+        self.assertFalse(r1 < r2)
+
+    def test_cmp_other(self):
+        r = R((1, 2, None))
+        self.assertNotEqual(r, (1, 2, None))
+        self.assertNotEqual(r, [1, 2, None])
+        self.assertNotEqual(r, {'a': 1, 'b': 2, 'c': None})
+        self.assertNotEqual(r, 1)
+        self.assertNotEqual(r, 'a')
