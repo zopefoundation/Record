@@ -126,3 +126,9 @@ class RecordTest(unittest.TestCase):
         self.assertTrue('a' in r)
         self.assertTrue('c' in r)
         self.assertFalse('d' in r)
+
+    def test_slice(self):
+        r = R((1, 2, None))
+        self.assertRaises(TypeError, r.__getslice__, 0, 1)
+        self.assertRaises(TypeError, r.__setslice__, 0, 1, (1, 2))
+        self.assertRaises(TypeError, r.__delslice__, 0, 1)

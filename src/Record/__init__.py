@@ -93,3 +93,12 @@ class Record(object):
 
     def __contains__(self, key):
         return key in self._schema
+
+    def __getslice__(self, i, j):
+        raise TypeError('Record objects do not support slicing')
+
+    def __setslice__(self, i, j, sequence):
+        raise TypeError('Record objects do not support slicing')
+
+    def __delslice__(self, i, j):
+        raise TypeError('Record objects do not support slicing')
