@@ -83,5 +83,13 @@ class Record(object):
             except KeyError:
                 raise AttributeError(key)
 
+    def __delattr__(self, key):
+        self[key] = None
+
+    def __delitem__(self, key):
+        if isinstance(key, int):
+            raise TypeError('cannot delete record items')
+        self[key] = None
+
     def __contains__(self, key):
         return key in self._schema

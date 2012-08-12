@@ -87,6 +87,11 @@ class RecordTest(unittest.TestCase):
         self.assertEqual(getattr(r, 'd', 2), 2)
         self.assertRaises(AttributeError, getattr, r, 'd')
         self.assertRaises(AttributeError, setattr, r, 'd', 2)
+        del r.a
+        self.assertTrue(r.a is None)
+        r.b = 2
+        delattr(r, 'b')
+        self.assertTrue(r.b is None)
 
     def test_mapping(self):
         r = R()
@@ -98,6 +103,9 @@ class RecordTest(unittest.TestCase):
         self.assertEqual(r.b, 42)
         self.assertRaises(KeyError, r.__getitem__, 'd')
         self.assertRaises(KeyError, r.__setitem__, 'd', 2)
+        del r['a']
+        self.assertTrue(r.a is None)
+        self.assertRaises(TypeError, r.__delitem__, 1)
 
     def test_sequence(self):
         r = R()
