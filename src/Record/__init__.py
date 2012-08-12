@@ -11,14 +11,6 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Records
-
-Records are used to provide compact storage for database query result rows.
-
-They don't use instance dictionaries. Rather, they store they data in
-a compact array internally. They use a record schema to map names to
-positions within the array.
-"""
 
 _marker = object()
 
