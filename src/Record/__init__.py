@@ -14,6 +14,7 @@
 
 
 class Record(object):
+    """Simple Record Types"""
 
     __record_schema__ = None
     __slots__ = ('_data', '_schema')
