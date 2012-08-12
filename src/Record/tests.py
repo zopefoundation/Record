@@ -84,6 +84,9 @@ class RecordTest(unittest.TestCase):
         self.assertTrue(r.c is None)
         r.a = 1
         self.assertEqual(r.a, 1)
+        self.assertEqual(getattr(r, 'd', 2), 2)
+        self.assertRaises(AttributeError, getattr, r, 'd')
+        self.assertRaises(AttributeError, setattr, r, 'd', 2)
 
     def test_mapping(self):
         r = R()
@@ -93,6 +96,8 @@ class RecordTest(unittest.TestCase):
         r['b'] = 42
         self.assertEqual(r['b'], 42)
         self.assertEqual(r.b, 42)
+        self.assertRaises(KeyError, r.__getitem__, 'd')
+        self.assertRaises(KeyError, r.__setitem__, 'd', 2)
 
     def test_sequence(self):
         r = R()

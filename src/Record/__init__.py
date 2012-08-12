@@ -58,12 +58,14 @@ class Record(object):
                 raise TypeError('invalid record schema')
         return self._data[pos]
 
-    def __getattr__(self, key):
+    def __getattr__(self, key, default=_marker):
         if key in self.__slots__:
             return object.__getattribute__(self, key)
         try:
             return self.__getitem__(key)
         except KeyError:
+            if default is not _marker:
+                return default
             raise AttributeError(key)
 
     def __setitem__(self, key, value):
@@ -81,7 +83,10 @@ class Record(object):
         if key in self.__slots__:
             object.__setattr__(self, key, value)
         else:
-            self.__setitem__(key, value)
+            try:
+                self.__setitem__(key, value)
+            except KeyError:
+                raise AttributeError(key)
 
     def __contains__(self, key):
         return key in self._schema
