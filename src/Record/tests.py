@@ -194,3 +194,16 @@ class RecordTest(unittest.TestCase):
         self.assertTrue(repr(r).startswith('<Record.tests.R '))
         self.assertTrue(str(r).startswith('<Record.tests.R '))
         self.assertTrue(unicode(r).startswith(u'<Record.tests.R '))
+
+    def test_schema(self):
+        class R(Record):
+            __record_schema__ = {'a': 0}
+        R.__record_schema__ = {'a': 0, 'b': 1}
+        r = R((1, 2))
+        self.assertEqual(list(r), [1, 2])
+        R.__record_schema__ = {'a': 0}
+        # an existing instance won't get a schema update from the class
+        self.assertEqual(list(r), [1, 2])
+        # but new instances will use the new schema
+        r2 = R((1, 2))
+        self.assertEqual(list(r2), [1])
