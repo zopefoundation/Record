@@ -45,6 +45,16 @@ class RecordTest(unittest.TestCase):
         r = R((1, 2, None), parent)
         self.assertEqual(tuple(r), (1, 2, None))
 
+    def test_incomplete_subclass(self):
+        class R(Record):
+            def __init__(self, *args):
+                pass
+            __record_schema__ = {'a': 0}
+        r = R((1, ))
+        self.assertEqual(tuple(r), (1, ))
+        self.assertEqual(r[0], 1)
+        self.assertEqual(r.a, 1)
+
     def test_pickling(self):
         # We can create records from sequences
         r = R(('x', 42, 1.23))

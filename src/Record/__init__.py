@@ -17,42 +17,42 @@ class Record(object):
     """Simple Record Types"""
 
     __record_schema__ = None
-    __slots__ = ('_data', '_schema')
+    __slots__ = ('__data__', '__schema__')
 
-    def __init__(self, data=None, parent=None):
+    def __new__(cls, data=None, parent=None):
+        obj = object.__new__(cls)
+        obj.__setstate__(data)
+        return obj
+
+    def __getstate__(self):
+        return self.__data__
+
+    def __setstate__(self, data):
         cls_schema = type(self).__record_schema__
         if cls_schema is None:
             cls_schema = {}
-        self._schema = schema = cls_schema
+        self.__schema__ = schema = cls_schema
         len_schema = len(schema)
-        if data is not None:
-            if isinstance(data, dict):
-                self._data = (None, ) * len_schema
-                for k, v in data.items():
-                    if k in schema:
-                        self[k] = v
-            elif len(data) == len_schema:
-                self._data = tuple(data)
-            else:
-                self._data = (None, ) * len_schema
-                maxlength = min(len(data), len_schema)
-                for i in xrange(maxlength):
-                    self[i] = data[i]
+        self.__data__ = (None, ) * len_schema
+        if data is None:
+            return
+        if isinstance(data, dict):
+            for k, v in data.items():
+                if k in schema:
+                    self[k] = v
+        elif len(data) == len_schema:
+            self.__data__ = tuple(data)
         else:
-            self._data = (None, ) * len(schema)
-
-    def __getstate__(self):
-        return self._data
-
-    def __setstate__(self, state):
-        self.__init__(state)
+            maxlength = min(len(data), len_schema)
+            for i in xrange(maxlength):
+                self[i] = data[i]
 
     def __getitem__(self, key):
         if isinstance(key, int):
             pos = key
         else:
-            pos = self._schema[key]
-        return self._data[pos]
+            pos = self.__schema__[key]
+        return self.__data__[pos]
 
     def __getattr__(self, key):
         if key in self.__slots__:
@@ -67,11 +67,11 @@ class Record(object):
             pos = key
         else:
             try:
-                pos = self._schema[key]
+                pos = self.__schema__[key]
             except IndexError:
                 raise TypeError('invalid record schema')
-        old = self._data
-        self._data = old[:pos] + (value, ) + old[pos + 1:]
+        old = self.__data__
+        self.__data__ = old[:pos] + (value, ) + old[pos + 1:]
 
     def __setattr__(self, key, value):
         if key in self.__slots__:
@@ -91,7 +91,7 @@ class Record(object):
         self[key] = None
 
     def __contains__(self, key):
-        return key in self._schema
+        return key in self.__schema__
 
     def __getslice__(self, i, j):
         raise TypeError('Record objects do not support slicing')
@@ -109,9 +109,9 @@ class Record(object):
         raise TypeError('Record objects do not support repetition')
 
     def __len__(self):
-        return len(self._schema)
+        return len(self.__schema__)
 
     def __cmp__(self, other):
         if isinstance(other, Record):
-            return cmp(self._data, other._data)
+            return cmp(self.__data__, other.__data__)
         return cmp(id(self), id(other))
