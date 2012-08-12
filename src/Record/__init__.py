@@ -70,3 +70,6 @@ class Record(object):
             object.__setattr__(self, key, value)
         else:
             self.__setitem__(key, value)
+
+    def __contains__(self, key):
+        return key in self._schema

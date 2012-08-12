@@ -67,3 +67,9 @@ class RecordTest(unittest.TestCase):
         self.assertEqual(r[2], 7)
         self.assertEqual(r.c, 7)
         self.assertEqual(list(r), [1, 6, 7])
+
+    def test_contains(self):
+        r = R((1, 2, None))
+        self.assertTrue('a' in r)
+        self.assertTrue('c' in r)
+        self.assertFalse('d' in r)
