@@ -11,58 +11,40 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
+"""Record tests
 
-import pickle
-import unittest
+$Id: tests.py,v 1.2 2003/11/28 16:46:36 jim Exp $
+"""
 
 from Record import Record
+import pickle
 
+class P(Record):
+     __record_schema__ = {'a': 0, 'b': 1, 'c': 2}
 
-class R(Record):
-    __record_schema__ = {'a': 0, 'b': 1, 'c': 2}
+def test_RecordPickling():
+    """
 
+    We can create records from sequences:
+    
+    >>> r = P(('x', 42, 1.23))
 
-class RecordTest(unittest.TestCase):
+    We can pickle them:
 
-    def test_pickling(self):
-        # We can create records from sequences
-        r = R(('x', 42, 1.23))
-        # We can pickle them
-        r2 = pickle.loads(pickle.dumps(r))
-        self.assertEqual(list(r), list(r2))
-        self.assertEqual(r.__record_schema__, r2.__record_schema__)
+    >>> r2 = pickle.loads(pickle.dumps(r))
+    >>> list(r) == list(r2)
+    1
+    >>> r.__record_schema__ == r2.__record_schema__
+    1
+    """
 
-    def test_no_dict(self):
-        r = R()
-        self.assertRaises(AttributeError, getattr, r, '__dict__')
+import unittest
+from doctest import DocTestSuite
 
-    def test_attribute(self):
-        r = R()
-        self.assertTrue(r.a is None)
-        self.assertTrue(r.b is None)
-        self.assertTrue(r.c is None)
-        r.a = 1
-        self.assertEqual(r.a, 1)
+def test_suite():
+    return unittest.TestSuite((
+        DocTestSuite('Record'),
+        DocTestSuite(),
+        ))
 
-    def test_mapping(self):
-        r = R()
-        r.a = 1
-        self.assertEqual('%(a)s %(b)s %(c)s' % r, '1 None None')
-        self.assertEqual(r['a'], 1)
-        r['b'] = 42
-        self.assertEqual(r['b'], 42)
-        self.assertEqual(r.b, 42)
-
-    def test_sequence(self):
-        r = R()
-        r.a = 1
-        r.b = 42
-        self.assertEqual(r[0], 1)
-        self.assertEqual(r[1], 42)
-        r[1] = 6
-        self.assertEqual(r[1], 6)
-        self.assertEqual(r.b, 6)
-        r[2] = 7
-        self.assertEqual(r[2], 7)
-        self.assertEqual(r.c, 7)
-        self.assertEqual(list(r), [1, 6, 7])
+if __name__ == '__main__': unittest.main()
