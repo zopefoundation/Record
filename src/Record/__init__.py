@@ -107,3 +107,6 @@ class Record(object):
 
     def __mul__(self, other):
         raise TypeError('Record objects do not support repetition')
+
+    def __len__(self):
+        return len(self._schema)

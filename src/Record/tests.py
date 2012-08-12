@@ -141,3 +141,7 @@ class RecordTest(unittest.TestCase):
     def test_mul(self):
         r = R((1, 2, None))
         self.assertRaises(TypeError, r.__mul__, 3)
+
+    def test_len(self):
+        r = R((1, 2, None))
+        self.assertEqual(len(r), 3)
