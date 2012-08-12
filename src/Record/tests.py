@@ -33,7 +33,7 @@ class RecordTest(unittest.TestCase):
         self.assertEqual(r.__record_schema__, r2.__record_schema__)
 
     def test_no_dict(self):
-        r = R()
+        r = Record()
         self.assertRaises(AttributeError, getattr, r, '__dict__')
 
     def test_attribute(self):
