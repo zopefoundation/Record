@@ -19,7 +19,7 @@ class Record(object):
     __record_schema__ = None
     __slots__ = ('_data', '_schema')
 
-    def __init__(self, data=None):
+    def __init__(self, data=None, parent=None):
         cls_schema = type(self).__record_schema__
         if cls_schema is None:
             cls_schema = {}

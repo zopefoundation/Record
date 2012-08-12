@@ -40,6 +40,11 @@ class RecordTest(unittest.TestCase):
         r = R((1, 2, 3, 4))
         self.assertEqual(tuple(r), (1, 2, 3))
 
+    def test_init_two(self):
+        parent = object()
+        r = R((1, 2, None), parent)
+        self.assertEqual(tuple(r), (1, 2, None))
+
     def test_pickling(self):
         # We can create records from sequences
         r = R(('x', 42, 1.23))
