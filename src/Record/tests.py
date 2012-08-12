@@ -188,3 +188,9 @@ class RecordTest(unittest.TestCase):
         self.assertNotEqual(r, {'a': 1, 'b': 2, 'c': None})
         self.assertNotEqual(r, 1)
         self.assertNotEqual(r, 'a')
+
+    def test_repr(self):
+        r = R((1, 2, None))
+        self.assertTrue(repr(r).startswith('<Record.tests.R '))
+        self.assertTrue(str(r).startswith('<Record.tests.R '))
+        self.assertTrue(unicode(r).startswith(u'<Record.tests.R '))
