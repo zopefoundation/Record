@@ -132,3 +132,12 @@ class RecordTest(unittest.TestCase):
         self.assertRaises(TypeError, r.__getslice__, 0, 1)
         self.assertRaises(TypeError, r.__setslice__, 0, 1, (1, 2))
         self.assertRaises(TypeError, r.__delslice__, 0, 1)
+
+    def test_add(self):
+        r1 = R((1, 2, None))
+        r2 = R((1, 2, None))
+        self.assertRaises(TypeError, r1.__add__, r2)
+
+    def test_mul(self):
+        r = R((1, 2, None))
+        self.assertRaises(TypeError, r.__mul__, 3)

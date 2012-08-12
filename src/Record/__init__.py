@@ -12,8 +12,6 @@
 #
 ##############################################################################
 
-_marker = object()
-
 
 class Record(object):
 
@@ -102,3 +100,9 @@ class Record(object):
 
     def __delslice__(self, i, j):
         raise TypeError('Record objects do not support slicing')
+
+    def __add__(self, other):
+        raise TypeError('Record objects do not support concatenation')
+
+    def __mul__(self, other):
+        raise TypeError('Record objects do not support repetition')
