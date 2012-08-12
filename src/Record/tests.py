@@ -24,6 +24,22 @@ class R(Record):
 
 class RecordTest(unittest.TestCase):
 
+    def test_init(self):
+        r = R()
+        self.assertEqual(tuple(r), (None, None, None))
+        r = R((1, 2, 3))
+        self.assertEqual(tuple(r), (1, 2, 3))
+        r = R([1, 2, 3])
+        self.assertEqual(tuple(r), (1, 2, 3))
+        r = R({})
+        self.assertEqual(tuple(r), (None, None, None))
+        r = R({'a': 1, 'c': 3, 'd': 4})
+        self.assertEqual(tuple(r), (1, None, 3))
+        r = R((1, 2))
+        self.assertEqual(tuple(r), (1, 2, None))
+        r = R((1, 2, 3, 4))
+        self.assertEqual(tuple(r), (1, 2, 3))
+
     def test_pickling(self):
         # We can create records from sequences
         r = R(('x', 42, 1.23))

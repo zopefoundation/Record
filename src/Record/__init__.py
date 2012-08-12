@@ -25,8 +25,20 @@ class Record(object):
         if cls_schema is None:
             cls_schema = {}
         self._schema = schema = cls_schema
+        len_schema = len(schema)
         if data is not None:
-            self._data = data
+            if isinstance(data, dict):
+                self._data = (None, ) * len_schema
+                for k, v in data.items():
+                    if k in schema:
+                        self[k] = v
+            elif len(data) == len_schema:
+                self._data = tuple(data)
+            else:
+                self._data = (None, ) * len_schema
+                maxlength = min(len(data), len_schema)
+                for i in xrange(maxlength):
+                    self[i] = data[i]
         else:
             self._data = (None, ) * len(schema)
 
