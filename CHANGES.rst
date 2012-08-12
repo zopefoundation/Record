@@ -4,7 +4,7 @@ Changelog
 3.0 (unreleased)
 ----------------
 
-- Add support for `__contains__` and default argument to `getattr`.
+- Add support for `__contains__`.
 
 - Rewrite tests as unit tests.
 
