@@ -12,7 +12,7 @@
 #
 ##############################################################################
 
-import pickle
+import cPickle
 import unittest
 
 from Record import Record
@@ -28,9 +28,33 @@ class RecordTest(unittest.TestCase):
         # We can create records from sequences
         r = R(('x', 42, 1.23))
         # We can pickle them
-        r2 = pickle.loads(pickle.dumps(r))
+        r2 = cPickle.loads(cPickle.dumps(r))
         self.assertEqual(list(r), list(r2))
         self.assertEqual(r.__record_schema__, r2.__record_schema__)
+
+    def test_pickle_old(self):
+        r = R(('x', 42, 1.23))
+        p0 = ("ccopy_reg\n__newobj__\np1\n(cRecord.tests\nR\np2\ntRp3\n"
+            "(S'x'\nI42\nF1.23\ntb.")
+        p1 = ('ccopy_reg\n__newobj__\nq\x01(cRecord.tests\nR\nq\x02tRq\x03'
+            '(U\x01xK*G?\xf3\xae\x14z\xe1G\xaetb.')
+        p2 = ('\x80\x02cRecord.tests\nR\nq\x01)\x81q\x02U\x01xK*G?\xf3\xae'
+            '\x14z\xe1G\xae\x87b.')
+        for p in (p0, p1, p2):
+            r2 = cPickle.loads(p)
+            self.assertEqual(list(r), list(r2))
+            self.assertEqual(r.__record_schema__, r2.__record_schema__)
+
+    def test_pickle_old_empty(self):
+        r = R()
+        p0 = 'ccopy_reg\n__newobj__\np1\n(cRecord.tests\nR\np2\ntRp3\n(NNNtb.'
+        p1 = ('ccopy_reg\n__newobj__\nq\x01(cRecord.tests\nR\nq\x02tRq'
+            '\x03(NNNtb.')
+        p2 = '\x80\x02cRecord.tests\nR\nq\x01)\x81q\x02NNN\x87b.'
+        for p in (p0, p1, p2):
+            r2 = cPickle.loads(p)
+            self.assertEqual(list(r), list(r2))
+            self.assertEqual(r.__record_schema__, r2.__record_schema__)
 
     def test_no_dict(self):
         r = R((1, 2, 3))
