@@ -112,6 +112,6 @@ class Record(object):
         return len(self._schema)
 
     def __cmp__(self, other):
-        if isinstance(other, type(self)):
+        if isinstance(other, Record):
             return cmp(self._data, other._data)
         return cmp(id(self), id(other))
