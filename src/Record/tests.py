@@ -212,3 +212,12 @@ class RecordTest(unittest.TestCase):
         # but new instances will use the new schema
         r2 = R((1, 2))
         self.assertEqual(list(r2), [1])
+
+    def test_of(self):
+        from ExtensionClass import Base
+
+        class R(Record):
+            __record_schema__ = {'a': 0}
+
+        r = R((4, ))
+        self.assertTrue(isinstance(r, Base))

@@ -14,8 +14,10 @@
 
 import os
 
+from ExtensionClass import Base
 
-class Record(object):
+
+class Record(Base):
     """Simple Record Types"""
 
     __record_schema__ = None
