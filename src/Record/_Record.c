@@ -346,6 +346,12 @@ Record_ass_slice(Record *self, int ilow, int ihigh, PyObject *v)
   return -1;
 }
 
+static int
+Record_contains(Record *self, PyObject *key)
+{
+  return PySequence_Contains(self->schema, key);
+}
+
 static PySequenceMethods Record_as_sequence = {
   (lenfunc)Record_init,			/*sq_length*/
   (binaryfunc)Record_concat,		/*sq_concat*/
@@ -354,6 +360,7 @@ static PySequenceMethods Record_as_sequence = {
   (ssizessizeargfunc)Record_slice,		/*sq_slice*/
   (ssizeobjargproc)Record_ass_item,	/*sq_ass_item*/
   (ssizessizeobjargproc)Record_ass_slice,	/*sq_ass_slice*/
+  (objobjproc)Record_contains,       /*sq_contains*/
 };
 
 /* -------------------------------------------------------------- */
