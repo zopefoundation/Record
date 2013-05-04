@@ -50,7 +50,7 @@ class Record(Base):
         else:
             self.__data__ = (None, ) * len_schema
             maxlength = min(len(data), len_schema)
-            for i in xrange(maxlength):
+            for i in range(maxlength):
                 self[i] = data[i]
 
     def __getitem__(self, key):

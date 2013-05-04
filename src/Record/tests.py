@@ -12,10 +12,14 @@
 #
 ##############################################################################
 
-import cPickle
 import unittest
 
 from Record import Record
+
+try:
+    import CPickle as pickle
+except ImportError:
+    import pickle
 
 
 class R(Record):
@@ -49,7 +53,7 @@ class RecordTest(unittest.TestCase):
         # We can create records from sequences
         r = R(('x', 42, 1.23))
         # We can pickle them
-        r2 = cPickle.loads(cPickle.dumps(r))
+        r2 = pickle.loads(pickle.dumps(r))
         self.assertEqual(list(r), list(r2))
         self.assertEqual(r.__record_schema__, r2.__record_schema__)
 
@@ -62,7 +66,7 @@ class RecordTest(unittest.TestCase):
         p2 = ('\x80\x02cRecord.tests\nR\nq\x01)\x81q\x02U\x01xK*G?\xf3\xae'
             '\x14z\xe1G\xae\x87b.')
         for p in (p0, p1, p2):
-            r2 = cPickle.loads(p)
+            r2 = pickle.loads(p)
             self.assertEqual(list(r), list(r2))
             self.assertEqual(r.__record_schema__, r2.__record_schema__)
 
@@ -73,7 +77,7 @@ class RecordTest(unittest.TestCase):
             '\x03(NNNtb.')
         p2 = '\x80\x02cRecord.tests\nR\nq\x01)\x81q\x02NNN\x87b.'
         for p in (p0, p1, p2):
-            r2 = cPickle.loads(p)
+            r2 = pickle.loads(p)
             self.assertEqual(list(r), list(r2))
             self.assertEqual(r.__record_schema__, r2.__record_schema__)
 
@@ -152,8 +156,8 @@ class RecordTest(unittest.TestCase):
         self.assertEqual(len(r), 3)
 
     def test_cmp(self):
-        r1 = R((1, 2, None))
-        r2 = R((1, 2, None))
+        r1 = R((1, 2, 0))
+        r2 = R((1, 2, 0))
         self.assertEqual(r1, r2)
         self.assertFalse(r1 is r2)
         self.assertTrue(r1 <= r2)
@@ -198,7 +202,6 @@ class RecordTest(unittest.TestCase):
         r = R((1, 2, None))
         self.assertTrue(repr(r).startswith('<Record.tests.R '))
         self.assertTrue(str(r).startswith('<Record.tests.R '))
-        self.assertTrue(unicode(r).startswith(u'<Record.tests.R '))
 
     def test_schema(self):
         class R(Record):
