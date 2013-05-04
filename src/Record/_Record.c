@@ -12,7 +12,7 @@
 
  ****************************************************************************/
 
-static char Record_module_documentation[] = 
+static char Record_module_documentation[] =
 ""
 "\n$Id: _Record.c,v 1.2 2003/11/28 16:46:36 jim Exp $"
 ;
@@ -61,7 +61,7 @@ Record_init(Record *self)
     UNLESS(self->schema=PyObject_GetAttr(OBJECT(self->ob_type),
 					 py___record_schema__)) return -1;
   if((l=PyObject_Length(self->schema)) < 0) return -1;
-  UNLESS(self->data) 
+  UNLESS(self->data)
     {
       UNLESS(self->data=malloc(sizeof(PyObject*)*(l+1)))
 	{
@@ -70,9 +70,9 @@ Record_init(Record *self)
 	}
       memset(self->data, 0, sizeof(PyObject*)*(l+1));
     }
-  
+
   return l;
-} 
+}
 
 static PyObject *
 Record___setstate__(Record *self, PyObject *args)
@@ -88,7 +88,7 @@ Record___setstate__(Record *self, PyObject *args)
     if(PyDict_Check(state))
       {
 	PyObject *k, *v;
-	
+
 	for(i=0; PyDict_Next(state, &i, &k, &v);)
 	  if(k && v && PyObject_SetAttr(OBJECT(self),k,v) < 0)
 	    PyErr_Clear();
@@ -96,7 +96,7 @@ Record___setstate__(Record *self, PyObject *args)
     else
       {
 	if((ls=PyObject_Length(state)) < 0) return NULL;
-	
+
 	for(i=0, d=self->data; i < l && i < ls; i++, d++)
 	  {
 	    ASSIGN(*d, PySequence_GetItem(state, i));
@@ -200,8 +200,8 @@ Record_getattr(Record *self, PyObject *name)
       return io;
     }
 
-  PyErr_SetObject(PyExc_AttributeError, name);  
-  
+  PyErr_SetObject(PyExc_AttributeError, name);
+
   return NULL;
 }
 
@@ -261,7 +261,7 @@ Record_compare(Record *v, Record *w)
 
 /* Code to handle accessing Record objects as sequence objects */
 
-static PyObject * 
+static PyObject *
 Record_concat(Record *self, PyObject *bb)
 {
   PyErr_SetString(PyExc_TypeError,
@@ -394,7 +394,7 @@ Record_subscript(Record *self, PyObject *key)
   PyErr_Clear();
   if ((io=PyObject_GetAttr(OBJECT(self), key))) return io;
 
-  PyErr_SetObject(PyExc_KeyError, key);					   
+  PyErr_SetObject(PyExc_KeyError, key);
   return NULL;
 }
 
@@ -476,7 +476,7 @@ static PyExtensionClass RecordType = {
 /* List of methods defined in the module */
 
 static struct PyMethodDef Module_Level__methods[] = {
-  
+
   {NULL, (PyCFunction)NULL, 0, NULL}		/* sentinel */
 };
 
