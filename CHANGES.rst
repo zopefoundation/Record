@@ -6,8 +6,7 @@ Changelog
 
 - Add support for `__contains__`.
 
-- Rewrite `Record` class as a new-style pure Python class using `__slots__`
-  instead of an extension class.
+- Provide an Python reference implementation using `__slots__`.
 
 - Rewrite tests as unit tests.
 
