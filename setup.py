@@ -17,7 +17,7 @@ from setuptools import setup, find_packages, Extension
 
 setup(
     name='Record',
-    version='2.13.1dev',
+    version='3.0dev',
     url='http://pypi.python.org/pypi/Record',
     license='ZPL 2.1',
     description="Special Record objects used in Zope2.",
