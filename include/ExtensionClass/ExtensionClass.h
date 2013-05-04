@@ -14,8 +14,6 @@
 
 /*
 
-  $Id$
-
   Extension Class Definitions
 
   Implementing base extension classes
