@@ -117,11 +117,27 @@ class Record(Base):
     def __len__(self):
         return len(self.__schema__)
 
-    def __cmp__(self, other):
+    def __lt__(self, other):
         if isinstance(other, Record):
-            return cmp(self.__data__, other.__data__)
-        return cmp(id(self), id(other))
+            return self.__data__ < other.__data__
+        return id(self) < id(other)
 
+    def __le__(self, other):
+        return self < other or self == other
+
+    def __eq__(self, other):
+        if isinstance(other, Record):
+            return self.__data__ == other.__data__
+        return id(self) == id(other)
+
+    def __ne__(self, other):
+        return not (self == other)
+
+    def __gt__(self, other):
+        return not(self <= other)
+
+    def __ge__(self, other):
+        return not(self < other)
 
 if not 'PURE_PYTHON' in os.environ:  # pragma no cover
     try:
