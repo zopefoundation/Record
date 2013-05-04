@@ -4,6 +4,9 @@ Changelog
 3.0 (unreleased)
 ----------------
 
+- Add support for Python 3.2, 3.3 and PyPy using the Python reference
+  implementation.
+
 - Add support for `__contains__`.
 
 - Provide an Python reference implementation using `__slots__`.
