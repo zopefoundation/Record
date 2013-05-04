@@ -12,14 +12,17 @@
 #
 ##############################################################################
 
+import sys
 import unittest
 
 from Record import Record
 
-try:
-    import CPickle as pickle
-except ImportError:
+if sys.version_info >= (3, ):
     import pickle
+    PY3K = True
+else:
+    import cPickle as pickle
+    PY3K = False
 
 
 class R(Record):
@@ -66,6 +69,8 @@ class RecordTest(unittest.TestCase):
         p2 = ('\x80\x02cRecord.tests\nR\nq\x01)\x81q\x02U\x01xK*G?\xf3\xae'
             '\x14z\xe1G\xae\x87b.')
         for p in (p0, p1, p2):
+            if PY3K:
+                p = p.encode('latin-1')
             r2 = pickle.loads(p)
             self.assertEqual(list(r), list(r2))
             self.assertEqual(r.__record_schema__, r2.__record_schema__)
@@ -77,6 +82,8 @@ class RecordTest(unittest.TestCase):
             '\x03(NNNtb.')
         p2 = '\x80\x02cRecord.tests\nR\nq\x01)\x81q\x02NNN\x87b.'
         for p in (p0, p1, p2):
+            if PY3K:
+                p = p.encode('latin-1')
             r2 = pickle.loads(p)
             self.assertEqual(list(r), list(r2))
             self.assertEqual(r.__record_schema__, r2.__record_schema__)
