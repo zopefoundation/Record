@@ -12,6 +12,8 @@
 #
 ##############################################################################
 
+import os
+
 
 class Record(object):
     """Simple Record Types"""
@@ -117,3 +119,10 @@ class Record(object):
         if isinstance(other, Record):
             return cmp(self.__data__, other.__data__)
         return cmp(id(self), id(other))
+
+
+if not 'PURE_PYTHON' in os.environ:  # pragma no cover
+    try:
+        from _Record import Record
+    except ImportError:
+        pass
