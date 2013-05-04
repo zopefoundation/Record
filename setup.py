@@ -47,7 +47,7 @@ setup(
         open('CHANGES.rst').read(),
     packages=find_packages('src'),
     package_dir={'': 'src'},
-        classifiers=[
+    classifiers=[
         "Development Status :: 6 - Mature",
         "Environment :: Web Environment",
         "Framework :: Zope2",
@@ -64,7 +64,7 @@ setup(
         "Programming Language :: Python :: Implementation :: PyPy",
     ],
     ext_modules=ext_modules,
-    install_requires=['ExtensionClass'],
+    install_requires=['ExtensionClass >= 4.1a1'],
     include_package_data=True,
     zip_safe=False,
 )
