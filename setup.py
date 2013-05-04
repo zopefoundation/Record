@@ -37,7 +37,7 @@ else:
 
 setup(
     name='Record',
-    version='3.0dev',
+    version='3.0',
     url='http://pypi.python.org/pypi/Record',
     license='ZPL 2.1',
     description="Special Record objects used in Zope2.",

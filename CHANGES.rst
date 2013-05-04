@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.0 (unreleased)
+3.0 (2013-05-04)
 ----------------
 
 - Add support for Python 3.2, 3.3 and PyPy using the Python reference
