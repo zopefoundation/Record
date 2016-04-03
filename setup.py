@@ -35,9 +35,11 @@ else:
             depends=[join('include', 'ExtensionClass', 'ExtensionClass.h')]),
     ]
 
+__version__ = '3.1.dev0'
+
 setup(
     name='Record',
-    version='3.0.1',
+    version=__version__,
     url='http://pypi.python.org/pypi/Record',
     license='ZPL 2.1',
     description="Special Record objects used in Zope2.",
@@ -55,11 +57,11 @@ setup(
         "Operating System :: OS Independent",
         "Programming Language :: Python",
         "Programming Language :: Python :: 2",
-        "Programming Language :: Python :: 2.6",
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.2",
         "Programming Language :: Python :: 3.3",
+        "Programming Language :: Python :: 3.4",
+        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: Implementation :: CPython",
         "Programming Language :: Python :: Implementation :: PyPy",
     ],
