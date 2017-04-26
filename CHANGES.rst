@@ -4,6 +4,7 @@ Changelog
 3.2 (unreleased)
 ----------------
 
+- Add support for Python 3.6, drop support for Python 3.3.
 
 3.1 (2016-04-03)
 ----------------
