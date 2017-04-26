@@ -35,7 +35,7 @@ else:
             depends=[join('include', 'ExtensionClass', 'ExtensionClass.h')]),
     ]
 
-__version__ = '3.2'
+__version__ = '3.3.dev0'
 
 setup(
     name='Record',
