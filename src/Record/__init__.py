@@ -24,7 +24,7 @@ class Record(Base):
     __slots__ = ('__data__', '__schema__')
 
     def __new__(cls, data=None, parent=None):
-        obj = object.__new__(cls)
+        obj = Base.__new__(cls)
         obj.__setstate__(data)
         return obj
 
