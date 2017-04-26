@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.2 (unreleased)
+3.2 (2017-04-26)
 ----------------
 
 - Use `ExtensionClass.Base.__new__`.
