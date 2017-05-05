@@ -12,8 +12,6 @@
 #
 ##############################################################################
 
-import os
-
 from ExtensionClass import Base
 
 
@@ -138,9 +136,3 @@ class Record(Base):
 
     def __ge__(self, other):
         return not(self < other)
-
-if not 'PURE_PYTHON' in os.environ:  # pragma no cover
-    try:
-        from _Record import Record
-    except ImportError:
-        pass

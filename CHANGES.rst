@@ -4,6 +4,7 @@ Changelog
 3.3 (unreleased)
 ----------------
 
+- Remove the C extension.
 
 3.2 (2017-04-26)
 ----------------
