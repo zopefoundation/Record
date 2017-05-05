@@ -18,6 +18,7 @@ from ExtensionClass import Base
 class Record(Base):
     """Simple Record Types"""
 
+    __allow_access_to_unprotected_subobjects__ = 1
     __record_schema__ = None
     __slots__ = ('__data__', '__schema__')
 

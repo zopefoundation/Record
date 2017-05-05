@@ -4,6 +4,8 @@ Changelog
 3.3 (unreleased)
 ----------------
 
+- Set `__allow_access_to_unprotected_subobjects__` on the Record class.
+
 - Remove the C extension.
 
 3.2 (2017-04-26)
