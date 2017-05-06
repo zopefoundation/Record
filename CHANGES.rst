@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.3 (unreleased)
+3.3 (2017-05-06)
 ----------------
 
 - Set `__allow_access_to_unprotected_subobjects__` on the Record class.
