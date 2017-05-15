@@ -117,7 +117,7 @@ class Record(Base):
         return len(self.__schema__)
 
     def __hash__(self):
-        return hash(self.__data__) + hash(tuple(self.__schema__.items()))
+        return id(self)
 
     def __lt__(self, other):
         if isinstance(other, Record):

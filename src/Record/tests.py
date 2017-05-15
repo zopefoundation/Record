@@ -173,13 +173,13 @@ class RecordTest(unittest.TestCase):
     def test_hash(self):
         r1 = R((1, 2, None))
         r2 = R((1, 2, None))
-        self.assertEqual(hash(r1), hash(r2))
+        self.assertNotEqual(hash(r1), hash(r2))
 
     def test_hash_schema(self):
         r = R((1, 2, None))
         r_same = RSameSchema((1, 2, None))
         r_diff = RDifferentSchema((1, 2, None))
-        self.assertEqual(hash(r), hash(r_same))
+        self.assertNotEqual(hash(r), hash(r_same))
         self.assertNotEqual(hash(r), hash(r_diff))
 
     def test_set_members(self):
@@ -191,15 +191,10 @@ class RecordTest(unittest.TestCase):
         records.add(r2)
         self.assertTrue(r1 in records)
         self.assertTrue(r2 in records)
-        # r3 is in the set, as it represent the same data as r1/r2,
-        # compares equal to it and hashes to the same value
-        self.assertTrue(r3 in records)
-        # Since all the values are equal, the set has a length of one
-        self.assertEqual(len(records), 1)
-        # A record with the same data, but a different schema, has
-        # a different hash.
-        records.add(r_diff)
+        self.assertFalse(r3 in records)
         self.assertEqual(len(records), 2)
+        records.add(r_diff)
+        self.assertEqual(len(records), 3)
         self.assertTrue(r_diff in records)
 
     def test_cmp(self):
