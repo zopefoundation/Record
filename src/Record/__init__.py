@@ -116,6 +116,9 @@ class Record(Base):
     def __len__(self):
         return len(self.__schema__)
 
+    def __hash__(self):
+        return id(self)
+
     def __lt__(self, other):
         if isinstance(other, Record):
             return self.__data__ < other.__data__

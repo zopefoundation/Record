@@ -4,6 +4,7 @@ Changelog
 3.4 (unreleased)
 ----------------
 
+- Add `__hash__` method to Record.
 
 3.3 (2017-05-06)
 ----------------
