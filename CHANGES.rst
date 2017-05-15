@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.4 (unreleased)
+3.4 (2017-05-15)
 ----------------
 
 - Add `__hash__` method to Record.
