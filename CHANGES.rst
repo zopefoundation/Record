@@ -4,6 +4,7 @@ Changelog
 3.5 (unreleased)
 ----------------
 
+- Added support for Python 3.7.
 
 3.4 (2017-05-15)
 ----------------
