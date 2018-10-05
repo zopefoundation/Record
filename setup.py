@@ -14,7 +14,7 @@
 
 from setuptools import setup, find_packages
 
-version = '3.5.dev0'
+version = '3.5'
 
 setup(
     name='Record',
