@@ -19,9 +19,9 @@ __version__ = '3.5.dev0'
 setup(
     name='Record',
     version=__version__,
-    url='http://pypi.python.org/pypi/Record',
+    url='https://github.com/zopefoundation/Record',
     license='ZPL 2.1',
-    description="Special Record objects used in Zope2.",
+    description="Special Record objects used in Zope.",
     author='Zope Foundation and Contributors',
     author_email='zope-dev@zope.org',
     long_description=open('README.rst').read() + '\n' +
@@ -31,7 +31,7 @@ setup(
     classifiers=[
         "Development Status :: 6 - Mature",
         "Environment :: Web Environment",
-        "Framework :: Zope2",
+        "Framework :: Zope :: 4",
         "License :: OSI Approved :: Zope Public License",
         "Operating System :: OS Independent",
         "Programming Language :: Python",
