@@ -14,11 +14,11 @@
 
 from setuptools import setup, find_packages
 
-__version__ = '3.5.dev0'
+version = '3.5.dev0'
 
 setup(
     name='Record',
-    version=__version__,
+    version=version,
     url='https://github.com/zopefoundation/Record',
     license='ZPL 2.1',
     description="Special Record objects used in Zope.",
