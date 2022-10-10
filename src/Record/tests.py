@@ -17,10 +17,11 @@ import unittest
 
 from Record import Record
 
+
 if sys.version_info >= (3, ):
     import pickle
     PY3K = True
-else:
+else:  # pragma: PY2
     import cPickle as pickle
     PY3K = False
 
@@ -71,13 +72,13 @@ class RecordTest(unittest.TestCase):
     def test_pickle_old(self):
         r = R(('x', 42, 1.23))
         p0 = ("ccopy_reg\n__newobj__\np1\n(cRecord.tests\nR\np2\ntRp3\n"
-            "(S'x'\nI42\nF1.23\ntb.")
+              "(S'x'\nI42\nF1.23\ntb.")
         p1 = ('ccopy_reg\n__newobj__\nq\x01(cRecord.tests\nR\nq\x02tRq\x03'
-            '(U\x01xK*G?\xf3\xae\x14z\xe1G\xaetb.')
+              '(U\x01xK*G?\xf3\xae\x14z\xe1G\xaetb.')
         p2 = ('\x80\x02cRecord.tests\nR\nq\x01)\x81q\x02U\x01xK*G?\xf3\xae'
-            '\x14z\xe1G\xae\x87b.')
+              '\x14z\xe1G\xae\x87b.')
         for p in (p0, p1, p2):
-            if PY3K:
+            if PY3K:  # pragma: PY3
                 p = p.encode('latin-1')
             r2 = pickle.loads(p)
             self.assertEqual(list(r), list(r2))
@@ -87,10 +88,10 @@ class RecordTest(unittest.TestCase):
         r = R()
         p0 = 'ccopy_reg\n__newobj__\np1\n(cRecord.tests\nR\np2\ntRp3\n(NNNtb.'
         p1 = ('ccopy_reg\n__newobj__\nq\x01(cRecord.tests\nR\nq\x02tRq'
-            '\x03(NNNtb.')
+              '\x03(NNNtb.')
         p2 = '\x80\x02cRecord.tests\nR\nq\x01)\x81q\x02NNN\x87b.'
         for p in (p0, p1, p2):
-            if PY3K:
+            if PY3K:  # pragma: PY3
                 p = p.encode('latin-1')
             r2 = pickle.loads(p)
             self.assertEqual(list(r), list(r2))
