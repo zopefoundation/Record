@@ -1,7 +1,7 @@
 Overview
 ========
 
-Record provides special objects used in some Zope2 internals like ZRDB.
+Record provides special objects used in some Zope internals like ZRDB.
 
 Records are used to provide compact storage for catalog query results.
 
