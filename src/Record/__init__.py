@@ -136,7 +136,7 @@ class Record(Base):
         return not (self == other)
 
     def __gt__(self, other):
-        return not(self <= other)
+        return not (self <= other)
 
     def __ge__(self, other):
-        return not(self < other)
+        return not (self < other)
