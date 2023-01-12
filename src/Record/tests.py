@@ -12,18 +12,10 @@
 #
 ##############################################################################
 
-import sys
+import pickle
 import unittest
 
 from Record import Record
-
-
-if sys.version_info >= (3, ):
-    import pickle
-    PY3K = True
-else:  # pragma: PY2
-    import cPickle as pickle
-    PY3K = False
 
 
 class R(Record):
@@ -78,8 +70,7 @@ class RecordTest(unittest.TestCase):
         p2 = ('\x80\x02cRecord.tests\nR\nq\x01)\x81q\x02U\x01xK*G?\xf3\xae'
               '\x14z\xe1G\xae\x87b.')
         for p in (p0, p1, p2):
-            if PY3K:  # pragma: PY3
-                p = p.encode('latin-1')
+            p = p.encode('latin-1')
             r2 = pickle.loads(p)
             self.assertEqual(list(r), list(r2))
             self.assertEqual(r.__record_schema__, r2.__record_schema__)
@@ -91,8 +82,7 @@ class RecordTest(unittest.TestCase):
               '\x03(NNNtb.')
         p2 = '\x80\x02cRecord.tests\nR\nq\x01)\x81q\x02NNN\x87b.'
         for p in (p0, p1, p2):
-            if PY3K:  # pragma: PY3
-                p = p.encode('latin-1')
+            p = p.encode('latin-1')
             r2 = pickle.loads(p)
             self.assertEqual(list(r), list(r2))
             self.assertEqual(r.__record_schema__, r2.__record_schema__)
@@ -188,7 +178,7 @@ class RecordTest(unittest.TestCase):
         r2 = R((1, 2, None))
         r3 = R((1, 2, None))
         r_diff = RDifferentSchema((1, 2, None))
-        records = set([r1])
+        records = {r1}
         records.add(r2)
         self.assertTrue(r1 in records)
         self.assertTrue(r2 in records)
