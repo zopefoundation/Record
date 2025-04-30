@@ -94,19 +94,19 @@ class RecordTest(unittest.TestCase):
 
     def test_attribute(self):
         r = R()
-        self.assertTrue(r.a is None)
-        self.assertTrue(r.b is None)
-        self.assertTrue(r.c is None)
+        self.assertIsNone(r.a)
+        self.assertIsNone(r.b)
+        self.assertIsNone(r.c)
         r.a = 1
         self.assertEqual(r.a, 1)
         self.assertEqual(getattr(r, 'd', 2), 2)
         self.assertRaises(AttributeError, getattr, r, 'd')
         self.assertRaises(AttributeError, setattr, r, 'd', 2)
         del r.a
-        self.assertTrue(r.a is None)
+        self.assertIsNone(r.a)
         r.b = 2
         delattr(r, 'b')
-        self.assertTrue(r.b is None)
+        self.assertIsNone(r.b)
 
     def test_mapping(self):
         r = R()
@@ -119,7 +119,7 @@ class RecordTest(unittest.TestCase):
         self.assertRaises(KeyError, r.__getitem__, 'd')
         self.assertRaises(KeyError, r.__setitem__, 'd', 2)
         del r['a']
-        self.assertTrue(r.a is None)
+        self.assertIsNone(r.a)
         self.assertRaises(TypeError, r.__delitem__, 1)
 
     def test_sequence(self):
@@ -138,9 +138,9 @@ class RecordTest(unittest.TestCase):
 
     def test_contains(self):
         r = R((1, 2, None))
-        self.assertTrue('a' in r)
-        self.assertTrue('c' in r)
-        self.assertFalse('d' in r)
+        self.assertIn('a', r)
+        self.assertIn('c', r)
+        self.assertNotIn('d', r)
 
     def test_slice(self):
         r = R((1, 2, None))
@@ -180,32 +180,32 @@ class RecordTest(unittest.TestCase):
         r_diff = RDifferentSchema((1, 2, None))
         records = {r1}
         records.add(r2)
-        self.assertTrue(r1 in records)
-        self.assertTrue(r2 in records)
-        self.assertFalse(r3 in records)
+        self.assertIn(r1, records)
+        self.assertIn(r2, records)
+        self.assertNotIn(r3, records)
         self.assertEqual(len(records), 2)
         records.add(r_diff)
         self.assertEqual(len(records), 3)
-        self.assertTrue(r_diff in records)
+        self.assertIn(r_diff, records)
 
     def test_cmp(self):
         r1 = R((1, 2, 0))
         r2 = R((1, 2, 0))
         self.assertEqual(r1, r2)
-        self.assertFalse(r1 is r2)
-        self.assertTrue(r1 <= r2)
-        self.assertTrue(r1 >= r2)
-        self.assertFalse(r1 != r2)
+        self.assertIsNot(r1, r2)
+        self.assertLessEqual(r1, r2)
+        self.assertGreaterEqual(r1, r2)
+        self.assertEqual(r1, r2)
         self.assertFalse(r1 > r2)
         self.assertFalse(r1 < r2)
         r3 = R((1, 2, 3))
         self.assertNotEqual(r1, r3)
-        self.assertFalse(r1 is r3)
-        self.assertTrue(r1 <= r3)
+        self.assertIsNot(r1, r3)
+        self.assertLessEqual(r1, r3)
         self.assertFalse(r1 >= r3)
-        self.assertTrue(r1 != r3)
+        self.assertNotEqual(r1, r3)
         self.assertFalse(r1 > r3)
-        self.assertTrue(r1 < r3)
+        self.assertLess(r1, r3)
 
     def test_cmp_different_schema(self):
         class R2(Record):
@@ -213,14 +213,14 @@ class RecordTest(unittest.TestCase):
         r1 = R((1, 2, None))
         r2 = R2((1, 2))
         self.assertNotEqual(r1, r2)
-        self.assertTrue(r1 > r2)
+        self.assertGreater(r1, r2)
         self.assertFalse(r1 < r2)
         r1 = R((1, 2, 3))
         self.assertNotEqual(r1, r2)
         self.assertFalse(r1 <= r2)
-        self.assertTrue(r1 >= r2)
-        self.assertTrue(r1 != r2)
-        self.assertTrue(r1 > r2)
+        self.assertGreaterEqual(r1, r2)
+        self.assertNotEqual(r1, r2)
+        self.assertGreater(r1, r2)
         self.assertFalse(r1 < r2)
 
     def test_cmp_other(self):
@@ -256,4 +256,4 @@ class RecordTest(unittest.TestCase):
             __record_schema__ = {'a': 0}
 
         r = R((4, ))
-        self.assertTrue(isinstance(r, Base))
+        self.assertIsInstance(r, Base)
