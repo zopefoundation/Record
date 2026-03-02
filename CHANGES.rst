@@ -5,6 +5,8 @@ Changelog
 ----------------
 
 
+- Add support for Python 3.14.
+
 - Drop support for Python 3.9.
 
 - Add support for Python 3.13.
