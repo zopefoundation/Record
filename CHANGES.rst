@@ -4,16 +4,11 @@ Changelog
 4.2 (unreleased)
 ----------------
 
-
 - Move package metadata from setup.py to pyproject.toml.
 
-- Add support for Python 3.14.
+- Add support for Python 3.13, 3.14.
 
-- Drop support for Python 3.9.
-
-- Add support for Python 3.13.
-
-- Drop support for Python 3.7, 3.8.
+- Drop support for Python 3.7, 3.8, 3.9.
 
 4.1 (2024-01-04)
 ----------------
