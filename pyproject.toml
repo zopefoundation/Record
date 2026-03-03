@@ -10,7 +10,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "Record"
-version = "4.2.dev0"
+version = "4.2"
 description = "Special Record objects used in Zope."
 license = "ZPL-2.1"
 classifiers = [
