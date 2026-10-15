@@ -4,7 +4,7 @@ Changelog
 4.3 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Drop support for Python 3.10.
 
 
 4.2 (2026-03-03)
